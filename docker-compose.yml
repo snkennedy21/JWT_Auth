@@ -6,7 +6,8 @@ services:
       - 8000:8000
     volumes:
       - ./:/usr/src/app:ro
-    command: sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+      - ./alembic/versions:/usr/src/app/alembic/versions
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
     depends_on:
       - db
 

@@ -9,3 +9,9 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False)
+
+class OtherUser(Base):
+    __tablename__ = "other_users"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False)
