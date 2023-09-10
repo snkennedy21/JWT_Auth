@@ -9,3 +9,4 @@ class UserCreate(BaseModel):
     last_name: str
     email: EmailStr
     password: str
+    hashed_password: Optional[str] = None
