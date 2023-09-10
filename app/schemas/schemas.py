@@ -10,3 +10,7 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
     hashed_password: Optional[str] = None
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
