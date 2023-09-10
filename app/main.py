@@ -22,4 +22,4 @@ app.include_router(auth.router)
 
 @app.get('/')
 def root():
-    return {"Message": "Changes pushed to production"}
+    return {"Message": "Hello World"}
