@@ -39,8 +39,11 @@ docker-compose up -d
 ## Database Management
 This project uses SQL Alchemy and Alembic to manage changes to the database and migrations. If you want to make changes to your local database you can do the following:
 
-#### 1. Make A Migration File
+#### 1. Make a Change to JWT_Auth/app/models.py
+These changes will be picked up and recognized by SQL Alchemy
+
+#### 2. Make A Migration File
 `docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
 
-#### 2. Migrate Changes To Postgres Database
+#### 3. Migrate Changes To Postgres Database
 `docker-compose run api alembic upgrade head`
