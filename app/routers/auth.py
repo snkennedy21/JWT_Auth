@@ -47,20 +47,8 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
     refresh_token = Authorize.create_refresh_token(subject=user.email)
 
     # Set the Token Cookies in the response
-    response.set_cookie(
-        key="access_token",
-        value=f"Bearer {access_token}",
-        httponly=True, expires=3600,
-        secure=True,
-        samesite="none"
-    )
-    response.set_cookie(
-        key="refresh_token",
-        value=f"Bearer {refresh_token}",
-        httponly=True, expires=3600,
-        secure=True,
-        samesite="none"
-    )
+    Authorize.set_access_cookies(access_token)
+    Authorize.set_refresh_cookies(refresh_token)
     return {"msg":"Successfully login"}
 
 @router.get('/user')
