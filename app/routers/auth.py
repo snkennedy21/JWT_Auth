@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import User
@@ -20,6 +20,13 @@ class UserModel(BaseModel):
 # from pydantic to get secret key from .env
 class Settings(BaseModel):
     authjwt_secret_key: str = "secret"
+    # Configure application to store and get JWT from cookies
+    authjwt_token_location: set = {'cookies', 'headers'}
+    authjwt_access_cookie_key: str = 'access_token'
+    authjwt_refresh_cookie_key: str = 'refresh_token'
+    authjwt_cookie_csrf_protect: bool = False
+    authjwt_cookie_domain: str = None
+    authjwt_cookie_samesite: str = "lax"
 
 # callback to get your configuration
 @AuthJWT.load_config
@@ -28,15 +35,33 @@ def get_config():
 
 
 @router.post('/login')
-def login(user: UserModel, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+
+    # Check if User Exists in Database
     the_user = db.query(User).filter(User.email == user.email).first()
-    print('Hello')
     if user.email != the_user.email or not utils.verify(user.password, the_user.hashed_password):
         raise HTTPException(status_code=401,detail="Bad username or password")
 
+    # Create the tokens and passing to set_access_cookies or set_refresh_cookies
     access_token = Authorize.create_access_token(subject=user.email)
     refresh_token = Authorize.create_refresh_token(subject=user.email)
-    return {"access_token": access_token, "refresh_token": refresh_token}
+
+    # Set the Token Cookies in the response
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True, expires=3600,
+        secure=True,
+        samesite="none"
+    )
+    response.set_cookie(
+        key="refresh_token",
+        value=f"Bearer {refresh_token}",
+        httponly=True, expires=3600,
+        secure=True,
+        samesite="none"
+    )
+    return {"msg":"Successfully login"}
 
 @router.get('/user')
 def user(Authorize: AuthJWT = Depends()):

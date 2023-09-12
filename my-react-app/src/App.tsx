@@ -1,10 +1,10 @@
-import Example from "./component";
+import Login from "./Login";
 import React from "react";
 
 function App() {
   return (
     <>
-      <Example />
+      <Login />
     </>
   );
 }
