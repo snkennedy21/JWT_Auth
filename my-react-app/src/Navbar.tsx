@@ -4,9 +4,9 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
+  { name: "Unprotected", href: "#" },
+  { name: "Partial Protection", href: "#" },
+  { name: "Protected", href: "#" },
 ];
 
 export default function Navbar() {

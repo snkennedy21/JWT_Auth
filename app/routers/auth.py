@@ -83,6 +83,8 @@ def create_user(new_user_data: UserCreate, db: Session = Depends(get_db)):
     del new_user_data.password
     new_user = User(**new_user_data.dict())
 
+    print("HELLO")
+
     # Add the New User to the Database
     db.add(new_user)
     db.commit()
