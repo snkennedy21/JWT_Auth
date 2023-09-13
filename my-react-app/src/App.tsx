@@ -5,8 +5,19 @@ import Navbar from "./Navbar";
 import HeroSection from "./HeroSection";
 import Signup from "./Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useCheckLoginStatusQuery } from "./store/mainAPI";
 
 function App() {
+  const { data: user, isLoading } = useCheckLoginStatusQuery();
+
+  // if (isLoading) {
+  //   console.log("isLoading");
+  // }
+
+  // if (user) {
+  //   console.log("user", user);
+  // }
+
   return (
     <>
       <BrowserRouter>

@@ -24,7 +24,16 @@ export const mainApi = createApi({
         body: credentials,
       }),
     }),
+
+    checkLoginStatus: builder.query({
+      query: () => ({
+        url: "/check",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = mainApi;
+export const { useLoginMutation, useSignupMutation, useCheckLoginStatusQuery } =
+  mainApi;

@@ -1,8 +1,15 @@
-import { useLoginMutation } from "./store/mainAPI";
+import { useLoginMutation, useCheckLoginStatusQuery } from "./store/mainAPI";
 import { Link } from "react-router-dom";
 
 export default function Login() {
   const [login, { isLoading, error }] = useLoginMutation();
+  const {
+    data: user,
+    isLoading: userDataLoading,
+    refetch,
+  } = useCheckLoginStatusQuery();
+
+  console.log("data", user);
 
   async function tryToLogUserIn(e) {
     e.preventDefault();
@@ -12,7 +19,9 @@ export default function Login() {
       email: email.value,
       password: password.value,
     });
-    console.log("response", response);
+    if (!response.error) {
+      refetch();
+    }
   }
 
   return (
