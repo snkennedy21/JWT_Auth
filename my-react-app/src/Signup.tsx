@@ -13,7 +13,6 @@ export default function Signup() {
       email: email.value,
       password: password.value,
     });
-    console.log("response", response);
   }
 
   return (

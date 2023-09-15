@@ -11,10 +11,9 @@ const navigation = [
 ];
 
 export default function Navbar() {
-  const userAuthenticated = useSelector(
-    (state) => state.auth
-  ).userAuthenticated;
+  const currentUser = useSelector((state) => state.user).currentUser.user;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
@@ -53,7 +52,7 @@ export default function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {userAuthenticated ? (
+          {currentUser ? (
             <Link
               to="/login"
               className="text-sm font-semibold leading-6 text-gray-900"
@@ -110,7 +109,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="py-6">
-                {userAuthenticated ? (
+                {currentUser ? (
                   <Link
                     to="/login"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

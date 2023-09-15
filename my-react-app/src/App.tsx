@@ -1,22 +1,21 @@
 import Login from "./Login";
-import React from "react";
 import Page from "./Page";
 import Navbar from "./Navbar";
 import HeroSection from "./HeroSection";
 import Signup from "./Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCheckLoginStatusQuery } from "./store/mainAPI";
-import { authenticateUser } from "./store/authSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { authenticateUser } from "./store/userSlice";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
-  const { data: user, isLoading } = useCheckLoginStatusQuery();
+  const { data: user } = useCheckLoginStatusQuery();
 
   useEffect(() => {
     if (user) {
-      dispatch(authenticateUser());
+      dispatch(authenticateUser(user));
     }
   }, [user, dispatch]);
 

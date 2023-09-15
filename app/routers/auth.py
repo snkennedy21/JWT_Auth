@@ -42,14 +42,19 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
     if user.email != the_user.email or not utils.verify(user.password, the_user.hashed_password):
         raise HTTPException(status_code=401,detail="Bad username or password")
 
-    # Create the tokens and passing to set_access_cookies or set_refresh_cookies
+    # Create the access_token and refresh_token
     access_token = Authorize.create_access_token(subject=user.email)
     refresh_token = Authorize.create_refresh_token(subject=user.email)
 
     # Set the Token Cookies in the response
     Authorize.set_access_cookies(access_token)
     Authorize.set_refresh_cookies(refresh_token)
-    return {"msg":"Successfully login"}
+
+    # Remove Sensitive User Data From Return Object
+    del the_user.hashed_password
+    del the_user.created_at
+    
+    return {"user": the_user}
 
 @router.get('/user')
 def user(Authorize: AuthJWT = Depends()):
@@ -99,7 +104,15 @@ def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: S
     return new_user
 
 @router.get("/check")
-def check_if_user_is_logged_in(Authorize: AuthJWT = Depends()):
+def check_if_user_is_logged_in(Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
     Authorize.jwt_required()
-    print("hello")
-    return {"msg": "You are logged in"}
+
+    # Get the current User based on the email
+    current_user_email = Authorize.get_jwt_subject()
+    current_user = db.query(User).filter(User.email == current_user_email).first()
+
+    # Remove Sensitive User Data From Return Object
+    del current_user.hashed_password
+    del current_user.created_at
+
+    return {"user": current_user}
