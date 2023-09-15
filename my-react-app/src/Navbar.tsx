@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const navigation = [
-  { name: "Unprotected", href: "#" },
-  { name: "Partial Protection", href: "#" },
-  { name: "Protected", href: "#" },
+  { name: "Unprotected", href: "unprotected" },
+  { name: "Partially Protected", href: "partially-protected" },
+  { name: "Protected", href: "protected" },
 ];
 
 export default function Navbar() {

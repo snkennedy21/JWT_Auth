@@ -63,13 +63,6 @@ def user(Authorize: AuthJWT = Depends()):
     current_user = Authorize.get_jwt_subject()
     return {"user": current_user}
 
-@router.get('/partially-protected')
-def partially_protected(Authorize: AuthJWT = Depends()):
-    Authorize.jwt_optional()
-
-    # If no jwt is sent in the request, get_jwt_subject() will return None
-    current_user = Authorize.get_jwt_subject() or "anonymous"
-    return {"user": current_user}
 
 @router.post('/refresh')
 def refresh(Authorize: AuthJWT = Depends()):
