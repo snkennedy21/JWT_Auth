@@ -6,17 +6,20 @@ import HeroSection from "./HeroSection";
 import Signup from "./Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCheckLoginStatusQuery } from "./store/mainAPI";
+import { authenticateUser } from "./store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import ProfileButton from "./ProfileButton";
 
 function App() {
+  const dispatch = useDispatch();
   const { data: user, isLoading } = useCheckLoginStatusQuery();
 
-  // if (isLoading) {
-  //   console.log("isLoading");
-  // }
-
-  // if (user) {
-  //   console.log("user", user);
-  // }
+  useEffect(() => {
+    if (user) {
+      dispatch(authenticateUser());
+    }
+  }, [user, dispatch]);
 
   return (
     <>

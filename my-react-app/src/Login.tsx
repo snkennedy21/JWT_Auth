@@ -1,7 +1,11 @@
 import { useLoginMutation, useCheckLoginStatusQuery } from "./store/mainAPI";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authenticateUser } from "./store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [login, { isLoading, error }] = useLoginMutation();
   const {
     data: user,
@@ -9,7 +13,11 @@ export default function Login() {
     refetch,
   } = useCheckLoginStatusQuery();
 
-  console.log("data", user);
+  const userAuthenticated = useSelector(
+    (state) => state.auth
+  ).userAuthenticated;
+
+  console.log(userAuthenticated);
 
   async function tryToLogUserIn(e) {
     e.preventDefault();
@@ -20,13 +28,15 @@ export default function Login() {
       password: password.value,
     });
     if (!response.error) {
-      refetch();
+      dispatch(authenticateUser());
+      navigate("/");
     }
   }
 
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-28 lg:px-8">
+        <div>{userAuthenticated ? "Yay" : "Nay"}</div>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account

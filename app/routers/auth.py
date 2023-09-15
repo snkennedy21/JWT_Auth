@@ -101,4 +101,5 @@ def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: S
 @router.get("/check")
 def check_if_user_is_logged_in(Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
+    print("hello")
     return {"msg": "You are logged in"}

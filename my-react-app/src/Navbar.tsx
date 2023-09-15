@@ -2,6 +2,8 @@ import { Dialog } from "@headlessui/react";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import ProfileButton from "./ProfileButton";
+import { useSelector } from "react-redux";
 
 const navigation = [
   { name: "Unprotected", href: "#" },
@@ -10,6 +12,9 @@ const navigation = [
 ];
 
 export default function Navbar() {
+  const userAuthenticated = useSelector(
+    (state) => state.auth
+  ).userAuthenticated;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -49,12 +54,21 @@ export default function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link
-            to="/login"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Log in <span aria-hidden="true">&rarr;</span>
-          </Link>
+          {userAuthenticated ? (
+            <Link
+              to="/login"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Log Out
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
         </div>
       </nav>
       <Dialog
@@ -97,12 +111,21 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="py-6">
-                <Link
-                  to="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </Link>
+                {userAuthenticated ? (
+                  <Link
+                    to="/login"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Log Out
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Log in
+                  </Link>
+                )}
               </div>
             </div>
           </div>
