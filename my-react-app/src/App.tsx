@@ -9,7 +9,6 @@ import { useCheckLoginStatusQuery } from "./store/mainAPI";
 import { authenticateUser } from "./store/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import ProfileButton from "./ProfileButton";
 
 function App() {
   const dispatch = useDispatch();
