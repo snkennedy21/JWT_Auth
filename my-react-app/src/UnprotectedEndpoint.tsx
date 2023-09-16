@@ -6,5 +6,18 @@ export default function UnprotectedEndpoint() {
 
   if (isLoading) return <div>Is Loading</div>;
 
-  return <div>{data.value}</div>;
+  return (
+    <>
+      <div>
+        This page is not protected by authentication requirements. Anyone can
+        access the page and the API endpoint associated with it.
+      </div>
+      <p>
+        Take a look at what's going on under the hood to better understand why
+      </p>
+
+      <div>Response From API</div>
+      <div>{data.value}</div>
+    </>
+  );
 }
