@@ -63,13 +63,6 @@ def user(Authorize: AuthJWT = Depends()):
     current_user = Authorize.get_jwt_subject()
     return {"user": current_user}
 
-@router.get('/partially-protected')
-def partially_protected(Authorize: AuthJWT = Depends()):
-    Authorize.jwt_optional()
-
-    # If no jwt is sent in the request, get_jwt_subject() will return None
-    current_user = Authorize.get_jwt_subject() or "anonymous"
-    return {"user": current_user}
 
 @router.post('/refresh')
 def refresh(Authorize: AuthJWT = Depends()):
@@ -105,10 +98,17 @@ def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: S
 
 @router.get("/check")
 def check_if_user_is_logged_in(Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
-    Authorize.jwt_required()
+    Authorize.jwt_optional()
 
     # Get the current User based on the email
-    current_user_email = Authorize.get_jwt_subject()
+    current_user_email = Authorize.get_jwt_subject() or "Anonymous User"
+
+    print(current_user_email)
+
+    if current_user_email == "Anonymous User":
+        return False
+
+    print(current_user_email)
     current_user = db.query(User).filter(User.email == current_user_email).first()
 
     # Remove Sensitive User Data From Return Object

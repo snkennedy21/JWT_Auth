@@ -32,8 +32,38 @@ export const mainApi = createApi({
         credentials: "include",
       }),
     }),
+
+    unprotectedEndpoint: builder.query({
+      query: () => ({
+        url: "/unprotected",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+
+    partiallyProtectedEndpoint: builder.query({
+      query: () => ({
+        url: "/partially-protected",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+
+    protectedEndpoint: builder.query({
+      query: () => ({
+        url: "/protected",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation, useCheckLoginStatusQuery } =
-  mainApi;
+export const {
+  useLoginMutation,
+  useSignupMutation,
+  useCheckLoginStatusQuery,
+  useUnprotectedEndpointQuery,
+  usePartiallyProtectedEndpointQuery,
+  useProtectedEndpointQuery,
+} = mainApi;
