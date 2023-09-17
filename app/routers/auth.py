@@ -98,10 +98,17 @@ def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: S
 
 @router.get("/check")
 def check_if_user_is_logged_in(Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
-    Authorize.jwt_required()
+    Authorize.jwt_optional()
 
     # Get the current User based on the email
-    current_user_email = Authorize.get_jwt_subject()
+    current_user_email = Authorize.get_jwt_subject() or "Anonymous User"
+
+    print(current_user_email)
+
+    if current_user_email == "Anonymous User":
+        return False
+
+    print(current_user_email)
     current_user = db.query(User).filter(User.email == current_user_email).first()
 
     # Remove Sensitive User Data From Return Object

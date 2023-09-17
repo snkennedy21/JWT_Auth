@@ -11,8 +11,10 @@ const navigation = [
 ];
 
 export default function Navbar() {
-  const currentUser = useSelector((state) => state.user).currentUser.user;
+  const currentUser = useSelector((state) => state.user).currentUser;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  console.log(currentUser);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
