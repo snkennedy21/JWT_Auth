@@ -5,9 +5,24 @@ from typing import Union
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth.exceptions import AuthJWTException
-
+from fastapi.middleware.cors import CORSMiddleware
+# from fastapi.middleware.trustedhost import TrustedHostMiddleware
 
 app = FastAPI()
+
+origins = ['http://localhost:5173']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# app.add_middleware(
+#     TrustedHostMiddleware, allowed_hosts=["http://localhost:5173"]
+# )
 
 # exception handler for authjwt
 # in production, you can tweak performance using orjson response
