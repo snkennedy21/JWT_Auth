@@ -1,4 +1,4 @@
-import { useProtectedEndpointQuery } from "./store/mainAPI";
+import { useProtectedEndpointQuery } from "./store/mainApi";
 
 export default function ProtectedEndpoint() {
   const { data, isLoading, error } = useProtectedEndpointQuery();

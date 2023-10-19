@@ -7,7 +7,7 @@ import UnprotectedEndpoint from "./UnprotectedEndpoint";
 import PartiallyProtectedEndpoint from "./PartiallyProtectedEndpoint";
 import ProtectedEndpoint from "./ProtectedEndpoint";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useCheckLoginStatusQuery } from "./store/mainAPI";
+import { useCheckLoginStatusQuery } from "./store/mainApi";
 import { authenticateUser } from "./store/userSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";

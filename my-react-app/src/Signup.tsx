@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSignupMutation } from "./store/mainAPI";
+import { useSignupMutation } from "./store/mainApi";
 
 export default function Signup() {
   const [signup, { isLoading: isSigningUp, error: signupError }] =

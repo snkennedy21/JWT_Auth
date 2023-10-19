@@ -1,4 +1,4 @@
-import { usePartiallyProtectedEndpointQuery } from "./store/mainAPI";
+import { usePartiallyProtectedEndpointQuery } from "./store/mainApi";
 
 export default function PartiallyProtectedEndpoint() {
   const { data, isLoading } = usePartiallyProtectedEndpointQuery();

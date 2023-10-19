@@ -1,4 +1,4 @@
-import { useLoginMutation, useCheckLoginStatusQuery } from "./store/mainAPI";
+import { useLoginMutation, useCheckLoginStatusQuery } from "./store/mainApi";
 import { Link, useNavigate } from "react-router-dom";
 import { authenticateUser } from "./store/userSlice";
 import { useSelector, useDispatch } from "react-redux";
