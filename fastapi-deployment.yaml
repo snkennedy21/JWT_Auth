@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels: # This line specifies the labels to match
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app # Ensure that these labels match the selector
+    spec:
+      containers:
+      - name: my-container
+        image: snkennedy21/backend-base:latest
+
