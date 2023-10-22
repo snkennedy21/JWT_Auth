@@ -5,14 +5,14 @@ metadata:
 spec:
   replicas: 3
   selector:
-    matchLabels: # This line specifies the labels to match
-      app: my-app
+    matchLabels:
+      app: fastapi-app
   template:
     metadata:
       labels:
-        app: my-app # Ensure that these labels match the selector
+        app: fastapi-app
     spec:
       containers:
-      - name: my-container
+      - name: fastapi-container
         image: snkennedy21/backend-base:latest
 
