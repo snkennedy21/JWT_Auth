@@ -13,5 +13,5 @@ spec:
         app: react-app
     spec:
       containers:
-      - name: frontend-base
+      - name: react-container
         image: snkennedy21/frontend-base:latest
