@@ -15,4 +15,3 @@ spec:
       containers:
       - name: fastapi-container
         image: snkennedy21/backend-base:latest
-
