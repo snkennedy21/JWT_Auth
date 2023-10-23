@@ -14,7 +14,7 @@ spec:
             name: react-service
             port:
               number: 5173
-  - host: fastapi-app.example.com  # Second host for FastAPI
+  - host: fastapi-app.example.com
     http:
       paths:
       - path: /
