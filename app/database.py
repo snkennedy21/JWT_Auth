@@ -7,8 +7,11 @@ import time
 
 # SQLALCHEMY_DATABASE_URL = "postgresql://<username>:<password>@<ip-address/hostname>:<database port>/<database_name>"
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://root:root@db:5432/test_db'
+# Use this for Docker Compose
+# SQLALCHEMY_DATABASE_URL = f'postgresql://root:root@db:5432/test_db'
 
+# Use this for Kubernetes Deployment
+SQLALCHEMY_DATABASE_URL = 'postgresql://your_database_user:your_database_password@postgres-service:5432/your_database_name'
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
