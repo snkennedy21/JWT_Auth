@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const navigation = [
-  { name: "Unprotected", href: "unprotected" },
-  { name: "Partially Protected", href: "partially-protected" },
-  { name: "Protected", href: "protected" },
+  { name: "Unprotected", href: "/unprotected" },
+  { name: "Partially Protected", href: "/partially-protected" },
+  { name: "Protected", href: "/protected" },
 ];
 
 export default function Navbar() {
@@ -44,13 +44,13 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a
+            <Link
               key={item.name}
-              href={item.href}
+              to={item.href}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
