@@ -3,6 +3,8 @@ import { usePartiallyProtectedEndpointQuery } from "./store/mainApi";
 export default function PartiallyProtectedEndpoint() {
   const { data, isLoading } = usePartiallyProtectedEndpointQuery();
 
+  console.log("data: ", data);
+
   if (isLoading) return <div>Is Loading</div>;
   return (
     <>

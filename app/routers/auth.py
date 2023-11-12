@@ -56,6 +56,12 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
     
     return {"user": the_user}
 
+@router.delete('/logout')
+def logout(response: Response, Authorize: AuthJWT = Depends()):
+    response.set_cookie(key="access_token", value="", expires=-1, httponly=True, secure=True, samesite="none")
+    response.set_cookie(key="refresh_token", value="", expires=-1, httponly=True, secure=True, samesite="none")
+    return {"message": "logout successful"}
+
 @router.get('/user')
 def user(Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
@@ -103,12 +109,9 @@ def check_if_user_is_logged_in(Authorize: AuthJWT = Depends(), db: Session = Dep
     # Get the current User based on the email
     current_user_email = Authorize.get_jwt_subject() or "Anonymous User"
 
-    print(current_user_email)
-
     if current_user_email == "Anonymous User":
         return False
 
-    print(current_user_email)
     current_user = db.query(User).filter(User.email == current_user_email).first()
 
     # Remove Sensitive User Data From Return Object

@@ -30,20 +30,22 @@ def get_config():
     return Settings()
 
 @router.get('/unprotected')
-def partially_protected(Authorize: AuthJWT = Depends()):
-
+def unprotected(Authorize: AuthJWT = Depends()):
     return {"value": "Unprotected Page"}
 
 @router.get('/partially-protected')
 def partially_protected(Authorize: AuthJWT = Depends()):
+    print("PARTIALLY PROTECTED")
     Authorize.jwt_optional()
 
     # If no jwt is sent in the request, get_jwt_subject() will return None
     current_user = Authorize.get_jwt_subject() or "Anonymous User"
+    print("CURRENT USER: ", current_user)
     return {"user": current_user}
 
 @router.get('/protected')
-def partially_protected(Authorize: AuthJWT = Depends()):
+def protected(Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
     current_user = Authorize.get_jwt_subject()
+    print("CURRENT USER: ", current_user)
     return {"user": current_user}

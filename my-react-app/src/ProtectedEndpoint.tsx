@@ -3,6 +3,8 @@ import { useProtectedEndpointQuery } from "./store/mainApi";
 export default function ProtectedEndpoint() {
   const { data, isLoading, error } = useProtectedEndpointQuery();
 
+  console.log("DATA: ", data);
+
   if (isLoading) return <div>Is Loading</div>;
 
   return (

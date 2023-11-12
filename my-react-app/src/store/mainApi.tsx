@@ -6,6 +6,8 @@ export const mainApi = createApi({
     baseUrl: "http://localhost:8000",
   }),
 
+  tagTypes: ["User"],
+
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
@@ -14,6 +16,16 @@ export const mainApi = createApi({
         credentials: "include",
         body: credentials,
       }),
+      invalidatesTags: ["User"],
+    }),
+
+    logout: builder.mutation({
+      query: () => ({
+        url: "/logout",
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["User"],
     }),
 
     signup: builder.mutation({
@@ -47,6 +59,7 @@ export const mainApi = createApi({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["User"],
     }),
 
     protectedEndpoint: builder.query({
@@ -55,12 +68,14 @@ export const mainApi = createApi({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["User"],
     }),
   }),
 });
 
 export const {
   useLoginMutation,
+  useLogoutMutation,
   useSignupMutation,
   useCheckLoginStatusQuery,
   useUnprotectedEndpointQuery,

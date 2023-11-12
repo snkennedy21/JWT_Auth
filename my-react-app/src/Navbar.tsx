@@ -3,18 +3,28 @@ import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useLogoutMutation } from "./store/mainApi";
+import { useDispatch } from "react-redux";
+import { unauthenticateUser } from "./store/userSlice";
 
 const navigation = [
-  { name: "Unprotected", href: "unprotected" },
-  { name: "Partially Protected", href: "partially-protected" },
-  { name: "Protected", href: "protected" },
+  { name: "Unprotected", href: "/unprotected" },
+  { name: "Partially Protected", href: "/partially-protected" },
+  { name: "Protected", href: "/protected" },
 ];
 
 export default function Navbar() {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user).currentUser;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logout] = useLogoutMutation();
 
   console.log(currentUser);
+
+  function logoutHandler() {
+    logout();
+    dispatch(unauthenticateUser());
+  }
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -44,19 +54,19 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
+            <Link
+              to={item.href}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {currentUser ? (
             <Link
-              to="/login"
+              onClick={logoutHandler}
+              to="/"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Log Out
@@ -101,19 +111,19 @@ export default function Navbar() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="py-6">
                 {currentUser ? (
                   <Link
-                    to="/login"
+                    onClick={logoutHandler}
+                    to="/"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Log Out
