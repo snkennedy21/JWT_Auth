@@ -28,6 +28,14 @@ export const mainApi = createApi({
       invalidatesTags: ["User"],
     }),
 
+    refresh: builder.mutation({
+      query: () => ({
+        url: "/refresh",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+
     signup: builder.mutation({
       query: (credentials) => ({
         url: "/user",

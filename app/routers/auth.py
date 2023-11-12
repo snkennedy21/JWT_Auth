@@ -47,8 +47,8 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
     refresh_token = Authorize.create_refresh_token(subject=user.email)
 
     # Set the Token Cookies in the response
-    Authorize.set_access_cookies(access_token)
-    Authorize.set_refresh_cookies(refresh_token)
+    response.set_cookie(key="access_token", value=access_token, expires=120, httponly=True, secure=True, samesite="none")
+    response.set_cookie(key="refresh_token", value=refresh_token, expires=1200, httponly=True, secure=True, samesite="none")
 
     # Remove Sensitive User Data From Return Object
     del the_user.hashed_password
@@ -76,7 +76,8 @@ def refresh(Authorize: AuthJWT = Depends()):
     Authorize.jwt_refresh_token_required()
     current_user = Authorize.get_jwt_subject()
     new_access_token = Authorize.create_access_token(subject=current_user)
-    return {"access_token": new_access_token}
+    response.set_cookie(key="access_token", value=new_access_token, expires=120, httponly=True, secure=True, samesite="none")
+    return {"Message": "Token Refreshed"}
 
 @router.post("/user")
 def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):

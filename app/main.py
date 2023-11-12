@@ -19,6 +19,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+async def before_request_middleware(request: Request, call_next):
+    print("Middleware executed before request")
+    response = await call_next(request)
+    print("Middleware executed after request")
+    return response
+
+# Register the middleware
+app.middleware("http")(before_request_middleware)
+
 # exception handler for authjwt
 # in production, you can tweak performance using orjson response
 @app.exception_handler(AuthJWTException)
