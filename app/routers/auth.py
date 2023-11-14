@@ -20,7 +20,6 @@ class UserModel(BaseModel):
 # from pydantic to get secret key from .env
 class Settings(BaseModel):
     authjwt_secret_key: str = "secret"
-    # Configure application to store and get JWT from cookies
     authjwt_token_location: set = {'cookies', 'headers'}
     authjwt_access_cookie_key: str = 'access_token'
     authjwt_refresh_cookie_key: str = 'refresh_token'
@@ -46,8 +45,10 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
     access_token = Authorize.create_access_token(subject=user.email)
     refresh_token = Authorize.create_refresh_token(subject=user.email)
 
+    print("ACCESS TOKEN: ", access_token)
+
     # Set the Token Cookies in the response
-    response.set_cookie(key="access_token", value=access_token, expires=120, httponly=True, secure=True, samesite="none")
+    response.set_cookie(key="access_token", value=access_token, expires=1200, httponly=True, secure=True, samesite="none")
     response.set_cookie(key="refresh_token", value=refresh_token, expires=1200, httponly=True, secure=True, samesite="none")
 
     # Remove Sensitive User Data From Return Object

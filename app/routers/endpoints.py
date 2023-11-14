@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException, Response, Request
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import User
@@ -30,7 +30,11 @@ def get_config():
     return Settings()
 
 @router.get('/unprotected')
-def unprotected(Authorize: AuthJWT = Depends()):
+def unprotected(request: Request, Authorize: AuthJWT = Depends()):
+    access_token = request.cookies.get('access_token')
+    # thing = Authorize.get_raw_jwt(access_token)
+    # print("THING: ", thing)
+    # print("ACCESS TOKEN: ", access_token)
     return {"value": "Unprotected Page"}
 
 @router.get('/partially-protected')
