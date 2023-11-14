@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Response
 from .routers import auth, endpoints
 from fastapi import Request
 from typing import Union
@@ -26,20 +26,31 @@ authjwt = AuthJWT()
 
 async def before_request_middleware(request: Request, call_next):
     print("Middleware executed before request")
-    access_token_cookie = request.cookies.get('access_token')
-    print("ACCESS TOKEN: ", access_token_cookie)
-    if access_token_cookie:
-        is_token_expired = check_if_access_token_expired(access_token_cookie)
+    access_token = request.cookies.get('access_token')
+    refresh_token = request.cookies.get('refresh_token')
+    print("REFRESH TOKEN: ", refresh_token)
+    print("ACCESS TOKEN: ", access_token)
+    response = await call_next(request)
+    print("RESPONSE: ", response)
+    if access_token:
+        is_token_expired = check_if_access_token_expired(access_token)
         print("IS TOKEN EXPIRED ", is_token_expired)
         if is_token_expired:
             raise HTTPException(status_code=401, detail="Access token has expired")
-    response = await call_next(request)
+
+    if not access_token and refresh_token:
+        print("ONLY A REFRESH TOKEN")
+        decoded_refresh_token = authjwt.get_raw_jwt(refresh_token)
+        print("DECODED: ", decoded_refresh_token)
+        new_access_token = authjwt.create_access_token(subject=decoded_refresh_token.get("sub"))
+        response.set_cookie(key="access_token", value=new_access_token, expires=10, httponly=True, secure=True, samesite="none")
+
     print("Middleware executed after request")
     return response
 
-def check_if_access_token_expired(access_token_cookie: str) -> bool:
+def check_if_access_token_expired(access_token: str) -> bool:
     print("HELLO")
-    decoded_token = authjwt.get_raw_jwt(access_token_cookie)
+    decoded_token = authjwt.get_raw_jwt(access_token)
     print("DECODED TOKEN: ", decoded_token)
     expiration_time = decoded_token.get('exp', 0) * 1000
     current_time = datetime.utcnow().timestamp() * 1000
