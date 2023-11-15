@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException, Response, Request
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import User
@@ -105,7 +105,13 @@ def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: S
     return new_user
 
 @router.get("/check")
-def check_if_user_is_logged_in(Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+def check_if_user_is_logged_in(request: Request, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+    access_token = request.cookies.get('access_token')
+    refresh_token = request.cookies.get('refresh_token')
+    print("REFRESH TOKEN: ", refresh_token)
+    print("ACCESS TOKEN: ", access_token)
+    if not access_token and refresh_token:
+        raise HTTPException(status_code=401, detail="Expired Token")
     Authorize.jwt_optional()
 
     # Get the current User based on the email

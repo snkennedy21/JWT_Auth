@@ -14,13 +14,19 @@ import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
-  const { data: user } = useCheckLoginStatusQuery();
+  const { data: user, isLoading, error, refetch } = useCheckLoginStatusQuery();
 
   useEffect(() => {
     if (user) {
       dispatch(authenticateUser(user));
     }
-  }, [user, dispatch]);
+    if (error == undefined) {
+      return;
+    }
+    if (error.data.detail === "Expired Token") {
+      refetch();
+    }
+  }, [user, dispatch, error]);
 
   return (
     <>
