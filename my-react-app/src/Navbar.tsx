@@ -19,8 +19,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logout] = useLogoutMutation();
 
-  console.log(currentUser);
-
   function logoutHandler() {
     logout();
     dispatch(unauthenticateUser());
