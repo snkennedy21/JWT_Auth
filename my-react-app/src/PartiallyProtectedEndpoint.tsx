@@ -1,7 +1,17 @@
 import { usePartiallyProtectedEndpointQuery } from "./store/mainApi";
+import { useEffect } from "react";
 
 export default function PartiallyProtectedEndpoint() {
-  const { data, isLoading } = usePartiallyProtectedEndpointQuery();
+  const { data, isLoading, error, refetch } =
+    usePartiallyProtectedEndpointQuery();
+
+  useEffect(() => {
+    if (error == undefined) {
+      return;
+    } else if (error.data.detail === "Expired Token") {
+      refetch();
+    }
+  }, [error, refetch]);
 
   if (isLoading) return <div>Is Loading</div>;
   return (
@@ -22,7 +32,14 @@ export default function PartiallyProtectedEndpoint() {
               hood to better understand why
             </p>
             <div>Response From API</div>
-            <div>{data.user}</div>
+            {error ? (
+              <>
+                <div>{error.status}</div>
+                <div>{error.data.detail}</div>
+              </>
+            ) : (
+              <div>{data.user}</div>
+            )}
           </div>
         </div>
       </div>

@@ -49,7 +49,7 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
 
     # Set the Token Cookies in the response
     response.set_cookie(key="access_token", value=access_token, expires=10, httponly=True, secure=True, samesite="none")
-    response.set_cookie(key="refresh_token", value=refresh_token, expires=1200, httponly=True, secure=True, samesite="none")
+    response.set_cookie(key="refresh_token", value=refresh_token, expires=60, httponly=True, secure=True, samesite="none")
 
     # Remove Sensitive User Data From Return Object
     del the_user.hashed_password

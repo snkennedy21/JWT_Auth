@@ -38,8 +38,13 @@ def unprotected(request: Request, Authorize: AuthJWT = Depends()):
     return {"value": "Unprotected Page"}
 
 @router.get('/partially-protected')
-def partially_protected(Authorize: AuthJWT = Depends()):
-    print("PARTIALLY PROTECTED")
+def partially_protected(request: Request, Authorize: AuthJWT = Depends()):
+    access_token = request.cookies.get('access_token')
+    refresh_token = request.cookies.get('refresh_token')
+    print("REFRESH TOKEN: ", refresh_token)
+    print("ACCESS TOKEN: ", access_token)
+    if not access_token and refresh_token:
+        raise HTTPException(status_code=401, detail="Expired Token")
     Authorize.jwt_optional()
 
     # If no jwt is sent in the request, get_jwt_subject() will return None
