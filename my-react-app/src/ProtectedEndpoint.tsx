@@ -1,7 +1,16 @@
 import { useProtectedEndpointQuery } from "./store/mainApi";
+import { useEffect } from "react";
 
 export default function ProtectedEndpoint() {
-  const { data, isLoading, error } = useProtectedEndpointQuery();
+  const { data, isLoading, error, refetch } = useProtectedEndpointQuery();
+
+  useEffect(() => {
+    if (error == undefined) {
+      return;
+    } else if (error.data.detail === "Expired Token") {
+      refetch();
+    }
+  }, [error, refetch]);
 
   if (isLoading) return <div>Is Loading</div>;
 

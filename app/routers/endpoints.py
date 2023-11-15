@@ -48,7 +48,13 @@ def partially_protected(Authorize: AuthJWT = Depends()):
     return {"user": current_user}
 
 @router.get('/protected')
-def protected(Authorize: AuthJWT = Depends()):
+def protected(request: Request, Authorize: AuthJWT = Depends()):
+    access_token = request.cookies.get('access_token')
+    refresh_token = request.cookies.get('refresh_token')
+    print("REFRESH TOKEN: ", refresh_token)
+    print("ACCESS TOKEN: ", access_token)
+    if not access_token and refresh_token:
+        raise HTTPException(status_code=401, detail="Expired Token")
     Authorize.jwt_required()
     current_user = Authorize.get_jwt_subject()
     print("CURRENT USER: ", current_user)

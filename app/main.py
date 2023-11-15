@@ -38,6 +38,7 @@ async def before_request_middleware(request: Request, call_next):
         decoded_refresh_token = authjwt.get_raw_jwt(refresh_token)
         new_access_token = authjwt.create_access_token(subject=decoded_refresh_token.get("sub"))
         response.set_cookie(key="access_token", value=new_access_token, expires=10, httponly=True, secure=True, samesite="none")
+        # raise HTTPException(status_code=401,detail="Failure")
     print("Middleware executed after request")
     return response
 
