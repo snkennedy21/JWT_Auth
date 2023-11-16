@@ -1,14 +1,15 @@
 # JWT_Auth
-The purpose of this repository is to provide individuals with a baseline repo from which to build personal projects. The tech stack for this baseline project is going to be the following
-- Server: FastAPI (Python)
+The purpose of this repository is to provide individuals with a baseline repository they can use to build personal projects. Here is the tech stack used in the repository
+- Server: FastAPI
 - Database: PostgreSQL 
 - Object Relational Mapper: SQL Alchemy
 - Migration Tool: Alembic
 - Frontend Framework: React
-- State Management Library: Redux
+- State Management Library: Redux Toolkit
 - CSS Framework: Tailwind
 
-## How to Get Started
+## How To Start The Application
+Fork this repository
 ```
 git clone thissite
 ```
@@ -18,6 +19,11 @@ cd /path/to/JWT_Auth
 ```
 docker-compose up -d
 ```
+
+## Navigating The Application
+- React Client is at 'http://localhost:5173'
+- FastAPI Server is at 'http://localhost:8000'
+- PG Admin GUI is at 'http://localhost:5050'
 
 ## PG Admin
 ### Accessing GUI
