@@ -62,6 +62,11 @@ This repository is intended to provide individuals with a starting point for bui
 
 # Using PG Admin
 
+### What is PG Admin?
+- PG Admin is not a required component of the full-stack application.
+- PG Admin, as its name might suggest, is an administrator tool to help you manage your Postgres Database.
+- It can be used to modify tables, data, and understand what is going on in your database.
+
 ### Connecting To Database
 - Navigate to 'http://localhost:5050/'
 - email: `user@email.com`
