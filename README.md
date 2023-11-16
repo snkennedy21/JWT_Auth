@@ -20,6 +20,7 @@ This repository is intended to provide individuals with a starting point for bui
     <li><a href="#how-to-get-started">How To Get Started</a></li>
     <li><a href="#using-pg-admin">Using PG Admin</a></li>
     <li><a href="#database-management">Database Management</a></li>
+    <li><a href="#documentation">Documentation</a></li>
   </ol>
 </details>
 
@@ -108,4 +109,9 @@ This repository is intended to provide individuals with a starting point for bui
 
 # Documentation
 ### Authentication
+- Authentication is established through JWT tokens that are stored as HTTP-Only cookies on the client
+- Access Tokens and Refresh Tokens are used to provide a positive user experience that doesn't require users to continuously submit their login credentials in order to stay authenticated.
+- Default expiration time of Access Tokens is 1 minute
+- Default expiration time of Refresh Tokens is 24 hours
+- As long as the user visits the website before the Refresh Token expires, they will never be signed out
 ![Diagram Of Authentication Flow](./resources/auth-diagram.png)
