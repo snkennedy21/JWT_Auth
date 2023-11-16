@@ -18,9 +18,7 @@ This repository is intended to provide individuals with a starting point for bui
       <a href="#tech-stack">Tech Stack</a>
     </li>
     <li><a href="#how-to-get-started">How To Get Started</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#database-management">Database Management</a></li>
   </ol>
 </details>
 
