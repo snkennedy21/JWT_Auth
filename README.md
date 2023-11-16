@@ -59,9 +59,9 @@ This repository is intended to provide individuals with a starting point for bui
 - FastAPI Server is at 'http://localhost:8000'
 - PG Admin GUI is at 'http://localhost:5050'
 
-### Using PG Admin
+# Using PG Admin
 
-#### Connecting To Database
+### Connecting To Database
 - Navigate to 'http://localhost:5050/'
 - email: `user@email.com`
 - password: `password`
@@ -75,7 +75,7 @@ This repository is intended to provide individuals with a starting point for bui
 - Password: `password`
 - Optional: check save password so you don't have to log into the database again whenever you log onto PG Admin
 
-#### Interacting With Database
+### Interacting With Database
 - Left click on `test_database` (or whatever you called it) arrow
 - Left click on `Databases` arrow
 - Left click on `postgres` arrow
@@ -84,13 +84,15 @@ This repository is intended to provide individuals with a starting point for bui
 - Now you can interact with you database tables
 
 # Database Management
-This project uses SQL Alchemy and Alembic to manage changes to the database and migrations. If you want to make changes to your local database you can do the following:
-
-### 1. Make a Change to JWT_Auth/app/models.py
-These changes will be picked up and recognized by SQL Alchemy
-
-### 2. Make A Migration File
-`docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
-
-### 3. Migrate Changes To Postgres Database
-`docker-compose run api alembic upgrade head`
+### Background
+- While PG Admin is a great tool for interacting the database and understanding your schemas and queries, it is not recommended to use PG Admin to make longterm changes that need to be reflected in your codebase.
+- This is because the section of Docker-Compose that is responsible for starting the API is also responsible for migrating all migration files you create with Alembic to your Postgres database.
+- In essence, Docker-Compose will look for all the changes you've made to your schemas in `/JWT_Auth/alembic/versions/`.
+- It will find those changes and apply them to your postgres database when you run `docker compose up`
+- If you only make changes your database tables' schemas using PG Admin, those changes will not persist when you stop and restart your containers.
+- SQL Alchemy and Alembic are used to manage changes to the database and migrations.
+### Great! So How Do I Actually Make Changes to My Database?
+  1. Make a Change to JWT_Auth/app/models.py
+  2. These changes will be picked up and recognized by SQL Alchemy
+  3. run `docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
+  4. run `docker-compose run api alembic upgrade head`
