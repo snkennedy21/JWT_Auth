@@ -5,9 +5,7 @@ export default function ProtectedEndpoint() {
   const { data, isLoading, error, refetch } = useProtectedEndpointQuery();
 
   useEffect(() => {
-    if (error == undefined) {
-      return;
-    } else if (error.data.detail === "Expired Token") {
+    if (error?.data?.detail === "Expired Token") {
       refetch();
     }
   }, [error, refetch]);
