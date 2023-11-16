@@ -53,6 +53,7 @@ This repository is intended to provide individuals with a starting point for bui
 - Fork this repository
 - clone your fork
 - cd /path/to/your-fork
+- `docker volume create postgres_data`
 - `docker-compose up`
 
 ### Accessing The Application
@@ -62,27 +63,36 @@ This repository is intended to provide individuals with a starting point for bui
 
 ### Using PG Admin
 
+#### Connecting To Database
 - Navigate to 'http://localhost:5050/'
-- email: `admin@admin.com`
-- password: `root`
+- email: `user@email.com`
+- password: `password`
 - Once signed on, right click on server, and select register server
-- In the `General` tab, give the server any name you want
+- In the `General` tab, give the server any name you want. `test_database` is a good one :)
 - In the `Connection` tab, enter the following:
-- Host name/address: db
-- Port: 5432
-- Maintenance Database: Postgres
-- Username: root
-- Password: root
+- Host name/address: `db`
+- Port: `5432`
+- Maintenance Database: `Postgres`
+- Username: `username`
+- Password: `password`
 - Optional: check save password so you don't have to log into the database again whenever you log onto PG Admin
 
-## Database Management
+#### Interacting With Database
+- Left click on `test_database` (or whatever you called it) arrow
+- Left click on `Databases` arrow
+- Left click on `postgres` arrow
+- Left click on `schemas` arrow
+- Left click on `tables` arrow
+- Now you can interact with you database tables
+
+# Database Management
 This project uses SQL Alchemy and Alembic to manage changes to the database and migrations. If you want to make changes to your local database you can do the following:
 
-#### 1. Make a Change to JWT_Auth/app/models.py
+### 1. Make a Change to JWT_Auth/app/models.py
 These changes will be picked up and recognized by SQL Alchemy
 
-#### 2. Make A Migration File
+### 2. Make A Migration File
 `docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
 
-#### 3. Migrate Changes To Postgres Database
+### 3. Migrate Changes To Postgres Database
 `docker-compose run api alembic upgrade head`
