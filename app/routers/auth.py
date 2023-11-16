@@ -7,6 +7,10 @@ from .. import utils
 from fastapi import HTTPException, Depends
 from fastapi_jwt_auth import AuthJWT
 from pydantic import BaseModel, EmailStr
+import os
+
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
+REFRESH_TOKEN_EXPIRE_MINUTES = int(os.environ.get("REFRESH_TOKEN_EXPIRE_MINUTES", 1440))
 
 router = APIRouter(
   tags = ["Authentication"]
@@ -48,8 +52,22 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
     print("ACCESS TOKEN: ", access_token)
 
     # Set the Token Cookies in the response
-    response.set_cookie(key="access_token", value=access_token, expires=60, httponly=True, secure=True, samesite="none")
-    response.set_cookie(key="refresh_token", value=refresh_token, expires=86400, httponly=True, secure=True, samesite="none")
+    response.set_cookie(
+        key="access_token", 
+        value=access_token, 
+        expires=ACCESS_TOKEN_EXPIRE_MINUTES, 
+        httponly=True, 
+        secure=True, 
+        samesite="none"
+    )
+    response.set_cookie(
+        key="refresh_token", 
+        value=refresh_token, 
+        expires=REFRESH_TOKEN_EXPIRE_MINUTES, 
+        httponly=True, 
+        secure=True, 
+        samesite="none"
+    )
 
     # Remove Sensitive User Data From Return Object
     del the_user.hashed_password
@@ -99,10 +117,22 @@ def create_user(response: Response, new_user_data: UserCreate, Authorize: AuthJW
     refresh_token = Authorize.create_refresh_token(subject=new_user.email)
 
     # Set the Token Cookies in the response
-    print("HERE")
-    response.set_cookie(key="access_token", value=access_token, expires=60, httponly=True, secure=True, samesite="none")
-    response.set_cookie(key="refresh_token", value=refresh_token, expires=86400, httponly=True, secure=True, samesite="none")
-    print("NEXT")
+    response.set_cookie(
+        key="access_token", 
+        value=access_token, 
+        expires=ACCESS_TOKEN_EXPIRE_MINUTES, 
+        httponly=True, 
+        secure=True, 
+        samesite="none"
+    )
+    response.set_cookie(
+        key="refresh_token", 
+        value=refresh_token, 
+        expires=REFRESH_TOKEN_EXPIRE_MINUTES, 
+        httponly=True, 
+        secure=True, 
+        samesite="none"
+    )
     return {"user": new_user}
 
 @router.get("/check")

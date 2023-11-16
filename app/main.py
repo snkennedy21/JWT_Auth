@@ -7,8 +7,11 @@ from fastapi.responses import JSONResponse
 from fastapi_jwt_auth.exceptions import AuthJWTException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_jwt_auth import AuthJWT
-import jwt
+import jwt, os
 from datetime import datetime
+
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
+REFRESH_TOKEN_EXPIRE_MINUTES = int(os.environ.get("REFRESH_TOKEN_EXPIRE_MINUTES", 1440))
 
 app = FastAPI()
 
@@ -37,8 +40,22 @@ async def before_request_middleware(request: Request, call_next):
         decoded_refresh_token = authjwt.get_raw_jwt(refresh_token)
         new_access_token = authjwt.create_access_token(subject=decoded_refresh_token.get("sub"))
         new_refresh_token = authjwt.create_refresh_token(subject=decoded_refresh_token.get("sub"))
-        response.set_cookie(key="access_token", value=new_access_token, expires=60, httponly=True, secure=True, samesite="none")
-        response.set_cookie(key="refresh_token", value=new_refresh_token, expires=86400, httponly=True, secure=True, samesite="none")
+        response.set_cookie(
+            key="access_token", 
+            value=new_access_token, 
+            expires=ACCESS_TOKEN_EXPIRE_MINUTES, 
+            httponly=True, 
+            secure=True, 
+            samesite="none"
+        )
+        response.set_cookie(
+            key="refresh_token", 
+            value=new_refresh_token, 
+            expires=REFRESH_TOKEN_EXPIRE_MINUTES, 
+            httponly=True, 
+            secure=True, 
+            samesite="none"
+        )
     return response
 
 def check_if_access_token_expired(access_token: str) -> bool:
