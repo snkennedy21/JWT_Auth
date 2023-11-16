@@ -48,8 +48,8 @@ def login(user: UserModel, response: Response, Authorize: AuthJWT = Depends(), d
     print("ACCESS TOKEN: ", access_token)
 
     # Set the Token Cookies in the response
-    response.set_cookie(key="access_token", value=access_token, expires=10, httponly=True, secure=True, samesite="none")
-    response.set_cookie(key="refresh_token", value=refresh_token, expires=60, httponly=True, secure=True, samesite="none")
+    response.set_cookie(key="access_token", value=access_token, expires=60, httponly=True, secure=True, samesite="none")
+    response.set_cookie(key="refresh_token", value=refresh_token, expires=86400, httponly=True, secure=True, samesite="none")
 
     # Remove Sensitive User Data From Return Object
     del the_user.hashed_password
@@ -99,8 +99,8 @@ def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: S
     refresh_token = Authorize.create_refresh_token(subject=new_user.email)
 
     # Set the Token Cookies in the response
-    Authorize.set_access_cookies(access_token)
-    Authorize.set_refresh_cookies(refresh_token)
+    response.set_cookie(key="access_token", value=access_token, expires=60, httponly=True, secure=True, samesite="none")
+    response.set_cookie(key="refresh_token", value=refresh_token, expires=86400, httponly=True, secure=True, samesite="none")
 
     return new_user
 
