@@ -105,3 +105,6 @@ This repository is intended to provide individuals with a starting point for bui
   2. These changes will be picked up and recognized by SQL Alchemy
   3. Run `docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
   4. Run `docker-compose run api alembic upgrade head`
+
+# Documentation
+### Authentication
