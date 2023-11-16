@@ -1,9 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignupMutation } from "./store/mainApi";
+import { useSelector, useDispatch } from "react-redux";
+import { authenticateUser } from "./store/userSlice";
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [signup, { isLoading: isSigningUp, error: signupError }] =
     useSignupMutation();
+
   async function tryToSignUpUser(e) {
     e.preventDefault();
     const { first_name, last_name, email, password } = e.target.elements;
@@ -13,6 +18,11 @@ export default function Signup() {
       email: email.value,
       password: password.value,
     });
+    if (!response.error) {
+      const currentUser = response.data.user;
+      dispatch(authenticateUser(currentUser));
+      navigate("/");
+    }
   }
 
   return (

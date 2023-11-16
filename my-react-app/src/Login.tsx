@@ -25,6 +25,7 @@ export default function Login() {
     });
     if (!response.error) {
       const currentUser = response.data.user;
+      
       dispatch(authenticateUser(currentUser));
       navigate("/");
     }

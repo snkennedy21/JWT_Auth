@@ -81,7 +81,7 @@ def refresh(Authorize: AuthJWT = Depends()):
     return {"Message": "Token Refreshed"}
 
 @router.post("/user")
-def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+def create_user(response: Response, new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
 
     # Hash The Users Password and Create a New User
     hashed_password = utils.hash(new_user_data.password)
@@ -99,10 +99,11 @@ def create_user(new_user_data: UserCreate, Authorize: AuthJWT = Depends(), db: S
     refresh_token = Authorize.create_refresh_token(subject=new_user.email)
 
     # Set the Token Cookies in the response
+    print("HERE")
     response.set_cookie(key="access_token", value=access_token, expires=60, httponly=True, secure=True, samesite="none")
     response.set_cookie(key="refresh_token", value=refresh_token, expires=86400, httponly=True, secure=True, samesite="none")
-
-    return new_user
+    print("NEXT")
+    return {"user": new_user}
 
 @router.get("/check")
 def check_if_user_is_logged_in(request: Request, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
