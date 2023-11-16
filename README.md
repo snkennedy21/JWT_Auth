@@ -20,7 +20,7 @@ This repository is intended to provide individuals with a starting point for bui
     <li><a href="#how-to-get-started">How To Get Started</a></li>
     <li><a href="#using-pg-admin">Using PG Admin</a></li>
     <li><a href="#database-management">Database Management</a></li>
-    <li><a href="#documentation">Documentation</a></li>
+    <li><a href="#authentication">Authentication</a></li>
   </ol>
 </details>
 
@@ -107,8 +107,7 @@ This repository is intended to provide individuals with a starting point for bui
   3. Run `docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
   4. Run `docker-compose run api alembic upgrade head`
 
-# Documentation
-### Authentication
+# Authentication
 - Authentication is established through JWT tokens that are stored as HTTP-Only cookies on the client
 - Access Tokens and Refresh Tokens are used to provide a positive user experience that doesn't require users to continuously submit their login credentials in order to stay authenticated.
 - Default expiration time of Access Tokens is 1 minute
