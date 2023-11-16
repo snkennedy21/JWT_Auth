@@ -1,14 +1,30 @@
 # JWT_Auth
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+<div align="center">
+  <div style="display: inline-block; text-align: left;">
+  
+  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+  ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+  ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+  ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+  ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+  <br>
+  </div>
+  
+  <div style="display: inline-block; text-align: left;">
+  
+  ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-%2300cc99.svg?style=for-the-badge&logo=sqlalchemy&logoColor=white)
+  ![Alembic](https://img.shields.io/badge/Alembic-%23316192.svg?style=for-the-badge&logo=python&logoColor=white)
+  ![Docker Compose](https://img.shields.io/badge/Docker_Compose-039be5.svg?style=for-the-badge&logo=docker&logoColor=white)
+  ![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-%23820000.svg?style=for-the-badge&logo=redux&logoColor=white)
+  </div>
+</div>
+
+
 <br>
 This repository is intended to provide individuals with a starting point for building personal projects and to help with learning. 
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<details open>
   <summary>Table of Contents</summary>
   <ol>
     <li>
