@@ -43,6 +43,7 @@ export const mainApi = createApi({
         credentials: "include",
         body: credentials,
       }),
+      invalidatesTags: ["User"],
     }),
 
     checkLoginStatus: builder.query({
