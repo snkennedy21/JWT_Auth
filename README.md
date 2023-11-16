@@ -52,9 +52,25 @@ This repository is intended to provide individuals with a starting point for bui
 ### Starting The Application
 - Fork this repository
 - clone your fork
-- cd /path/to/your-fork
+- cd `/path/to/your-fork`
+- create a `.env` file in `/path/to/your-fork`
+- Add the following to your `.env` file:
+```
+POSTGRES_USER=username
+POSTGRES_PASSWORD=password
+POSTGRES_DB=postgres
+PGADMIN_DEFAULT_EMAIL=user@email.com
+PGADMIN_DEFAULT_PASSWORD=password
+ACCESS_TOKEN_EXPIRE_MINUTES=1
+REFRESH_TOKEN_EXPIRE_MINUTES=1440
+```
 - `docker volume create postgres_data`
 - `docker-compose up`
+##### IMPORTANT
+- You should NEVER expose your `.env` varialbes on a public repo
+- Create a `.gitignore` file in `/path/to/your-fork` and add `.env` to that file
+- I have generic environment variables posted here to get you started
+- Feel free to change them to whatever you like, but keep in mind that this will change the login credentials required for PG Admin and Database Access
 
 ### Accessing The Application
 - React Client is at 'http://localhost:5173'
@@ -112,5 +128,6 @@ This repository is intended to provide individuals with a starting point for bui
 - Access Tokens and Refresh Tokens are used to provide a positive user experience that doesn't require users to continuously submit their login credentials in order to stay authenticated.
 - Default expiration time of Access Tokens is 1 minute
 - Default expiration time of Refresh Tokens is 24 hours
+- These values can be changed in the `.env` file
 - As long as the user visits the website before the Refresh Token expires, they will never be signed out
 ![Diagram Of Authentication Flow](./resources/auth-diagram.png)
