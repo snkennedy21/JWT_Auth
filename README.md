@@ -18,6 +18,7 @@ This repository is intended to provide individuals with a starting point for bui
       <a href="#tech-stack">Tech Stack</a>
     </li>
     <li><a href="#how-to-get-started">How To Get Started</a></li>
+    <li><a href="#using-pg-admin">Using PG Admin</a></li>
     <li><a href="#database-management">Database Management</a></li>
   </ol>
 </details>
@@ -85,14 +86,17 @@ This repository is intended to provide individuals with a starting point for bui
 
 # Database Management
 ### Background
-- While PG Admin is a great tool for interacting the database and understanding your schemas and queries, it is not recommended to use PG Admin to make longterm changes that need to be reflected in your codebase.
+- PG Admin is a great tool for interacting with your database and understanding your schemas and queries!
+- PG Admin is a great tool for adding/deleting data to/from existing tables in your database for the purposes of testing!
+- It is not recommended to use PG Admin to add/remove tables from your database.
+- It is not recommended to use PG Admin to modify the columns for the tables in your database.
 - This is because the section of Docker-Compose that is responsible for starting the API is also responsible for migrating all migration files you create with Alembic to your Postgres database.
 - In essence, Docker-Compose will look for all the changes you've made to your schemas in `/JWT_Auth/alembic/versions/`.
 - It will find those changes and apply them to your postgres database when you run `docker compose up`
 - If you only make changes your database tables' schemas using PG Admin, those changes will not persist when you stop and restart your containers.
 - SQL Alchemy and Alembic are used to manage changes to the database and migrations.
-### Great! So How Do I Actually Make Changes to My Database?
-  1. Make a Change to JWT_Auth/app/models.py
+### Great! So How Do I Actually Make Changes to The Tables in My Database?
+  1. Make a Change to `JWT_Auth/app/models.py` (If you're familiar with Django, it's just like changing models.py - You just have to follow SQL Alchemy's syntax instead)
   2. These changes will be picked up and recognized by SQL Alchemy
-  3. run `docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
-  4. run `docker-compose run api alembic upgrade head`
+  3. Run `docker-compose run api alembic revision --autogenerate -m "Your Message Here"`
+  4. Run `docker-compose run api alembic upgrade head`
