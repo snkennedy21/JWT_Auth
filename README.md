@@ -115,10 +115,3 @@ This repository is intended to provide individuals with a starting point for bui
 - Default expiration time of Refresh Tokens is 24 hours
 - As long as the user visits the website before the Refresh Token expires, they will never be signed out
 ![Diagram Of Authentication Flow](./resources/auth-diagram.png)
-
-- The following two image provide examples of how API requests are set up using React and Redux Toolkit
-![Diagram Of Authentication Flow](./resources/rtk-api-1.png)
-![Diagram Of Authentication Flow](./resources/rtk-api-2.png)
-
-- The following image shows an example of how one of the previously set up API requests is executed in a React Component
-![Diagram Of Authentication Flow](./resources/rtk-api-3.png)
