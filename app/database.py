@@ -7,7 +7,7 @@ import time
 
 # SQLALCHEMY_DATABASE_URL = "postgresql://<username>:<password>@<ip-address/hostname>:<database port>/<database_name>"
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://root:root@db:5432/test_db'
+SQLALCHEMY_DATABASE_URL = f'postgresql://root:root@db:5432/postgres'
 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
