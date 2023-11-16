@@ -4,10 +4,17 @@ from sqlalchemy.orm import sessionmaker
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
+import os
 
-# SQLALCHEMY_DATABASE_URL = "postgresql://<username>:<password>@<ip-address/hostname>:<database port>/<database_name>"
+# Get the values from environment variables or use default values
+db_user = os.environ.get("POSTGRES_USER", "username")
+db_password = os.environ.get("POSTGRES_PASSWORD", "password")
+db_name = os.environ.get("POSTGRES_DB", "postgres")
+db_host = "db"
+db_port = 5432
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://username:password@db:5432/postgres'
+# Construct the database URL
+SQLALCHEMY_DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
 max_retries = 5
 retry_interval = 5
