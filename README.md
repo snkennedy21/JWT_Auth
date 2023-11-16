@@ -37,6 +37,7 @@ This repository is intended to provide individuals with a starting point for bui
     <li><a href="#using-pg-admin">Using PG Admin</a></li>
     <li><a href="#database-management">Database Management</a></li>
     <li><a href="#authentication">Authentication</a></li>
+    <li><a href="#upcoming-features">Upcoming Features</a></li>
   </ol>
 </details>
 
@@ -147,3 +148,7 @@ REFRESH_TOKEN_EXPIRE_MINUTES=1440
 - These values can be changed in the `.env` file
 - As long as the user visits the website before the Refresh Token expires, they will never be signed out
 ![Diagram Of Authentication Flow](./resources/auth-diagram.png)
+
+# Upcoming Features
+- [ ] Correct TypeScript Syntax (I don't know TypeScript at the moment, but adding it didn't break anything 😅)
+- [ ] More Thorough Documentation
