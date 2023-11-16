@@ -1,3 +1,9 @@
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useCheckLoginStatusQuery } from "./store/mainApi";
+import { authenticateUser } from "./store/userSlice";
+
 import Login from "./Login";
 import Page from "./Page";
 import Navbar from "./Navbar";
@@ -6,27 +12,24 @@ import Signup from "./Signup";
 import UnprotectedEndpoint from "./UnprotectedEndpoint";
 import PartiallyProtectedEndpoint from "./PartiallyProtectedEndpoint";
 import ProtectedEndpoint from "./ProtectedEndpoint";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useCheckLoginStatusQuery } from "./store/mainApi";
-import { authenticateUser } from "./store/userSlice";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
-  const { data: user, isLoading, error, refetch } = useCheckLoginStatusQuery();
+  const {
+    data: userLoggedIn,
+    isLoading: userLoginStatusLoading,
+    error: userLoggedInError,
+    refetch: refetchUserLoginStatus,
+  } = useCheckLoginStatusQuery();
 
   useEffect(() => {
-    if (user) {
-      dispatch(authenticateUser(user));
+    if (userLoggedIn) {
+      dispatch(authenticateUser(userLoggedIn));
     }
-    if (error == undefined) {
-      return;
+    if (userLoggedInError?.data?.detail === "Expired Token") {
+      refetchUserLoginStatus();
     }
-    if (error.data.detail === "Expired Token") {
-      refetch();
-    }
-  }, [user, dispatch, error]);
+  }, [userLoggedIn, dispatch, userLoggedInError]);
 
   return (
     <>
