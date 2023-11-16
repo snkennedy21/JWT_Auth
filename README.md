@@ -108,3 +108,4 @@ This repository is intended to provide individuals with a starting point for bui
 
 # Documentation
 ### Authentication
+![Diagram Of Authentication Flow](./resources/auth-diagram.png)
