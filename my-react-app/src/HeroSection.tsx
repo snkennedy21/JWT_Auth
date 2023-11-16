@@ -7,7 +7,7 @@ export default function HeroSection() {
         <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
           Check out the{" "}
           <a
-            href="https://github.com/snkennedy21/JWT_Auth"
+            href="https://github.com/snkennedy21/JWT_Auth#readme"
             className="font-semibold text-indigo-600"
             target="_blank"
           >
@@ -32,7 +32,7 @@ export default function HeroSection() {
             Get started
           </Link>
           <a
-            href="https://github.com/snkennedy21/JWT_Auth"
+            href="https://github.com/snkennedy21/JWT_Auth#readme"
             className="text-sm font-semibold leading-6 text-gray-900"
             target="_blank"
           >
