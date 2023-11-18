@@ -1,3 +1,4 @@
+import React from "react";
 import { useUnprotectedEndpointQuery } from "./store/mainApi";
 
 export default function UnprotectedEndpoint() {

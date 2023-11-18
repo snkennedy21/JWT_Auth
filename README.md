@@ -150,5 +150,5 @@ REFRESH_TOKEN_EXPIRE_MINUTES=1440
 ![Diagram Of Authentication Flow](./resources/auth-diagram.png)
 
 # Upcoming Features
-- [ ] Correct TypeScript Syntax (I don't know TypeScript at the moment, but adding it didn't break anything 😅)
+- [ ] Correct TypeScript Syntax (I don't know TypeScript at the moment, but adding it didn't break anything 😅). I have to go back into `tsconfig.json` and change `"include": ["src/**/*.ts"]` to  `"include": ["src"]`
 - [ ] More Thorough Documentation
