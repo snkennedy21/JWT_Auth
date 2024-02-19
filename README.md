@@ -110,7 +110,7 @@ REFRESH_TOKEN_EXPIRE_MINUTES=1440
 - In the `Connection` tab, enter the following:
 - Host name/address: `db`
 - Port: `5432`
-- Maintenance Database: `Postgres`
+- Maintenance Database: `postgres`
 - Username: `username`
 - Password: `password`
 - Optional: check save password so you don't have to log into the database again whenever you log onto PG Admin
